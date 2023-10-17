@@ -14,26 +14,22 @@ class Atm{
     }
 
     // Check Balance
-    public Object getBalance(int pin){
+    public double getBalance(int pin){
         if(pin==this.pin){
             return this.balance;
         }
-        return "Sorry Invalid pin!";
+        return -1;
     }
 
     // Withdraw amount
     public void withdraw(double amount,int pin){
         if(pin==this.pin){
-            if(this.balance>amount){
+            if(this.balance>amount  && amount>0){
                 this.balance-=amount;
                 System.out.println("Amount Withdraw successfully");
-                System.out.print("Do you want to check balance:- ");
-                String yes = sc.nextLine();
-                if(yes.equalsIgnoreCase("Yes")){
-                    System.out.println(getBalance(pin));
-                }
+                System.out.println("Availble Balance:- "+getBalance(pin));
             }else{
-                System.out.println("Insufficent Balance!");
+                System.out.println("Insufficent Balance (or) Invalid amount");
             }
         }else{
             System.out.println("Invalid pin!");
@@ -43,9 +39,13 @@ class Atm{
     // Deposite amount
     public void deposite(double amount,int pin){
         if(pin==this.pin){
-            this.balance+=amount;
-            System.out.println("Amount Diposite successfully!");
-            System.out.println(getBalance(pin));
+            if(amount>0){
+                this.balance+=amount;
+                System.out.println("Amount Diposite successfully!");
+                System.out.println("Availble Balance:- "+getBalance(pin));
+            }else{
+                System.out.println("Invalid Amount!");
+            }
         }else{
             System.out.println("Invalid Pin!");
         }
@@ -86,7 +86,12 @@ public class AtmMachine {
                 case 1:
                     System.out.print("Enter your 4 digit pin:- ");
                     pin = sc.nextInt();
-                    System.out.println(sbi.getBalance(pin));
+                    double balance = sbi.getBalance(pin);
+                    if(balance!=-1){
+                        System.out.println("Your Balance is:- "+balance);
+                    }else{
+                        System.out.println("Sorry Invalid Pin!");
+                    }
                     break;
                 case 2:
                     System.out.print("Enter your 4 digit pin:- ");
@@ -111,7 +116,7 @@ public class AtmMachine {
                     System.out.println("Invalid Choice!!!");
             }
             sc.nextLine();
-            System.out.print("Do you want to proceed again:- ");
+            System.out.print("Do you want to proceed again(Yes/NO):- ");
             proceedAgain = sc.nextLine();
             if(proceedAgain.equalsIgnoreCase("No")){
                 sc.close();
