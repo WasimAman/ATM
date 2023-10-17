@@ -45,22 +45,18 @@ class Atm{
         if(pin==this.pin){
             this.balance+=amount;
             System.out.println("Amount Diposite successfully!");
-            System.out.print("Do you want to check Balance:- ");
-            String yes = sc.nextLine();
-            if(yes.equalsIgnoreCase("yes")){
-                System.out.println(getBalance(pin));
-            }
+            System.out.println(getBalance(pin));
         }else{
             System.out.println("Invalid Pin!");
         }
     }
 
     // Pin Change
-    public void pinChange(int pin){
-        if(pin==this.pin){
+    public void pinChange(int newPin){
+        if(newPin==this.pin){
             System.out.print("Enter your 4 digit new pin:- ");
-            pin = sc.nextInt();
-            this.pin = pin;
+            newPin = sc.nextInt();
+            this.pin = newPin;
             System.out.print("Pin has been Changed\n your new pin is:- "+this.pin);
         }else{
             System.out.println("Invalid Pin!");
